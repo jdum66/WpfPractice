@@ -5,16 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:ViewModels="clr-namespace:WpfApplication1.ViewModels"
         xmlns:Converters="clr-namespace:WpfApplication1.Views.Converters"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="600">
+        Title="Class List" Height="500" Width="900">
     <Window.Resources>
         <Converters:NullToVisibilityConverter x:Key="NullToVisibility" />
+        <GridLength x:Key="GridColumnHeight">500</GridLength>
+        <GridLength x:Key="GridColumnWidth">300</GridLength>
+        <System:Double x:Key="TextBoxHeight">200</System:Double>
+        <System:Double x:Key="TextBoxWidth">300</System:Double>
+        <System:Double x:Key="ButtonWidth">100</System:Double>
+        <System:Double x:Key="ButtonHeight">50</System:Double>
+        <DataGridLength x:Key="DataGridColumnWidth">100</DataGridLength>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="{StaticResource GridColumnWidth}" />
+            <ColumnDefinition Width="{StaticResource GridColumnWidth}" />
+            <ColumnDefinition Width="{StaticResource GridColumnWidth}" />
         </Grid.ColumnDefinitions>
 
         <ListBox Grid.Column="0">
@@ -23,34 +31,34 @@
                     <ViewModels:PersonCreationVM/>
                 </StackPanel.DataContext>
                 <Label>First Name:</Label>
-                <TextBox Text="{Binding FirstName, Mode=Default}"  Name="First_name" TextAlignment="Center" Margin="0,10" Width="194" />
+                <TextBox Text="{Binding FirstName, Mode=Default}"  Name="First_name" TextAlignment="Center" Margin="0,10" Width="{StaticResource TextBoxWidth}" />
                 <Label>Last Name:</Label>
-                <TextBox Text="{Binding LastName, Mode=Default}" Name="Last_name" TextAlignment="Center" Margin="0,10" Width="194" />
+                <TextBox Text="{Binding LastName, Mode=Default}" Name="Last_name" TextAlignment="Center" Margin="0,10" Width="{StaticResource TextBoxWidth}" />
                 <Label>Age:</Label>
-                <TextBox Text="{Binding Age, Mode=Default}" Name="Age" TextAlignment="Center" Margin="0,10" Width="194" />
+                <TextBox Text="{Binding Age, Mode=Default}" Name="Age" TextAlignment="Center" Margin="0,10" Width="{StaticResource TextBoxWidth}" />
                 <TextBlock Text="{Binding Exception.Message, StringFormat=Error: {0}}"
                        TextWrapping="Wrap"
                        Foreground="Red"
                        Margin="0 5"
-                       FontSize="10"
-                       Width="100"
+                       FontSize="12"
+                       Width="{StaticResource TextBoxWidth}"
                        TextAlignment="Center"
                        Visibility="{Binding Exception, Converter={StaticResource NullToVisibility}}"
                        />
             </StackPanel>
-            <Button Name="Submit" Command="{Binding ClickSubmitCommand}" CommandParameter="{Binding ElementName=InfoFields, Path=DataContext}" Content="Submit" Margin="65,10" Width="60" />          
+            <Button Name="Submit" Command="{Binding ClickSubmitCommand}" CommandParameter="{Binding ElementName=InfoFields, Path=DataContext}" Content="Submit" Margin="100,10" HorizontalAlignment="Center" Width="{StaticResource ButtonWidth}" />          
         </ListBox>
         
         <DataGrid Grid.Column="1" AutoGenerateColumns="False" Loaded="DataGrid1_Loaded" Name="DataGrid1" ItemsSource="{Binding Students}" CanUserAddRows="False">
             
             <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name" Width="66" Binding="{Binding FirstName, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Header="Last Name" Width="66" Binding="{Binding LastName, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Header="Age" Width="66" Binding="{Binding Age, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="First Name" Width="{StaticResource DataGridColumnWidth}" Binding="{Binding FirstName, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Last Name" Width="{StaticResource DataGridColumnWidth}" Binding="{Binding LastName, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Age" Width="{StaticResource DataGridColumnWidth}" Binding="{Binding Age, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}" />
             </DataGrid.Columns>
         </DataGrid>
-        
-        <Button Grid.Column="2" Name="Delete" Command="{Binding ClickDeleteCommand}" CommandParameter="{Binding ElementName=DataGrid1, Path=SelectedItem}" Content="Delete" Margin="65,10" Width="60" Height="40" />
+
+        <Button Grid.Column="2" Name="Delete" Command="{Binding ClickDeleteCommand}" CommandParameter="{Binding ElementName=DataGrid1, Path=SelectedItem}" Content="Delete" Margin="65,10" Width="{StaticResource ButtonWidth}" Height="{StaticResource ButtonHeight}" />
         
         
     </Grid>

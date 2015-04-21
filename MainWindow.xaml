@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:ViewModels="clr-namespace:WpfApplication1.ViewModels"
+        xmlns:Converters="clr-namespace:WpfApplication1.Views.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="600">
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+        <Converters:NullToVisibilityConverter x:Key="NullToVisibility" />
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,7 +20,7 @@
         <ListBox Grid.Column="0">
             <StackPanel Name="InfoFields">
                 <StackPanel.DataContext>
-                    <ViewModels:PersonVM/>
+                    <ViewModels:PersonCreationVM/>
                 </StackPanel.DataContext>
                 <Label>First Name:</Label>
                 <TextBox Text="{Binding FirstName, Mode=Default}"  Name="First_name" TextAlignment="Center" Margin="0,10" Width="194" />
@@ -27,21 +28,17 @@
                 <TextBox Text="{Binding LastName, Mode=Default}" Name="Last_name" TextAlignment="Center" Margin="0,10" Width="194" />
                 <Label>Age:</Label>
                 <TextBox Text="{Binding Age, Mode=Default}" Name="Age" TextAlignment="Center" Margin="0,10" Width="194" />
-            </StackPanel>
-            <Button Name="Submit" Command="{Binding ClickSubmitCommand}" CommandParameter="{Binding ElementName=InfoFields, Path=DataContext}" Content="Submit" Margin="65,10" Width="60" />
-            <StackPanel>
-                
                 <TextBlock Text="{Binding Exception.Message, StringFormat=Error: {0}}"
                        TextWrapping="Wrap"
                        Foreground="Red"
                        Margin="0 5"
-                       FontSize="14"
-                       Width="300"
+                       FontSize="10"
+                       Width="100"
                        TextAlignment="Center"
-                       Visibility="{Binding Exception, Converter={StaticResource BoolToVisibility}}"
+                       Visibility="{Binding Exception, Converter={StaticResource NullToVisibility}}"
                        />
             </StackPanel>
-            
+            <Button Name="Submit" Command="{Binding ClickSubmitCommand}" CommandParameter="{Binding ElementName=InfoFields, Path=DataContext}" Content="Submit" Margin="65,10" Width="60" />          
         </ListBox>
         
         <DataGrid Grid.Column="1" AutoGenerateColumns="False" Loaded="DataGrid1_Loaded" Name="DataGrid1" ItemsSource="{Binding Students}" CanUserAddRows="False">

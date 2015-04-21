@@ -30,6 +30,11 @@ namespace WpfApplication1
         {
 
         }
+
+        private void TextBlock_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
     }
 
 }

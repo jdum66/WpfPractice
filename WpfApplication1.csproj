@@ -57,6 +57,7 @@
     <Compile Include="ViewModels\StudentVM.cs" />
     <Compile Include="ViewModels\ClassRoomVM.cs" />
     <Compile Include="ViewModels\PersonVM.cs" />
+    <Compile Include="Views\Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Views\Converters\ConverterBase.cs" />
     <Compile Include="Views\Converters\ObjectToBooleanConverter.cs" />
     <Compile Include="Views\Converters\OneWayConverter.cs" />

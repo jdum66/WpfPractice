@@ -61,13 +61,12 @@ namespace WpfApplication1.ViewModels
 
         protected override void CommandExecute(object parameter)
         {
-            PersonVM person = (parameter as PersonVM);
+            PersonCreationVM person = (parameter as PersonCreationVM);
+            person.Exception = null;
 
-            if (person.FirstName == null || person.LastName == null || person.Age == null)
-            {
-                MessageBox.Show("Values cannot be null");
-                return;
-            }
+            if (person.FirstName == null) { person.FirstName = " "; }
+            if (person.LastName == null) { person.LastName = " "; }
+            if (person.Age == null) { person.Age = " "; }
 
             StudentVM student = new StudentVM(person.FirstName, person.LastName, person.Age);
 
@@ -79,10 +78,7 @@ namespace WpfApplication1.ViewModels
             }
             catch (Exception e)
             {
-                Debug.WriteLine("there was an error");
-                MessageBox.Show(e.Message);
-                student.Exception = e;
-                
+                person.Exception = e;          
                 return;
             }     
         }

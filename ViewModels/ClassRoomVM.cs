@@ -72,7 +72,7 @@ namespace WpfApplication1.ViewModels
 
             try
             {
-                var valid = _Validate(student);
+                _Validate(student);
                 ClassRoomVM.Add(student);
                 return;
             }
@@ -83,7 +83,7 @@ namespace WpfApplication1.ViewModels
             }     
         }
 
-        Boolean _Validate(StudentVM student)
+        private void _Validate(StudentVM student)
         {
             Regex validName = new Regex("^[A-Za-z]+$");
             Regex validAge = new Regex(@"^\d+$");
@@ -95,7 +95,7 @@ namespace WpfApplication1.ViewModels
             {
                 throw new Exception("Enter a valid age");
             }
-            return true;
+            return;
         }        
     }
 
